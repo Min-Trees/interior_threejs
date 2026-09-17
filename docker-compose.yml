@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: phuquy_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME:-phuquy_db}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-phuquy_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - phuquy_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: phuquy_backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-phuquy_db}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - JWT_SECRET=${JWT_SECRET:-9a6747f3a778795c654d6a2f0e2d81f215f103f728f70cbe1fc44d5d5102bb8b497b790772d19c622a09b191492333260624d6b6706a461d1c371bc2e7f97c7b}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - GROQ_MODEL=${GROQ_MODEL:-llama-3.3-70b-versatile}
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173,http://frontend:80
+    networks:
+      - phuquy_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: phuquy_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    networks:
+      - phuquy_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  phuquy_network:
+    driver: bridge

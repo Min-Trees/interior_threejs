@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: furniture-backend
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:phuquy_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:9a6747f3a778795c654d6a2f0e2d81f215f103f728f70cbe1fc44d5d5102bb8b497b790772d19c622a09b191492333260624d6b6706a461d1c371bc2e7f97c7b}
+    expiration-ms: 86400000 # 24 hours
+  groq:
+    api-key: ${GROQ_API_KEY:}
+    api-url: https://api.groq.com/openai/v1/chat/completions
+    model: ${GROQ_MODEL:llama-3.3-70b-versatile}
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173}
