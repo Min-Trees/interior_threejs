@@ -7,7 +7,7 @@ spring:
   application:
     name: furniture-backend
   datasource:
-    url: jdbc:postgresql://${PGHOST:${DB_HOST:localhost}}:${PGPORT:${DB_PORT:5432}}/${PGDATABASE:${DB_NAME:phuquy_db}}
+    url: jdbc:postgresql://${RAILWAY_TCP_PROXY_DOMAIN:${PGHOST:${DB_HOST:localhost}}}:${RAILWAY_TCP_PROXY_PORT:${PGPORT:${DB_PORT:5432}}}/${PGDATABASE:${DB_NAME:phuquy_db}}
     username: ${PGUSER:${DB_USER:postgres}}
     password: ${PGPASSWORD:${DB_PASSWORD:postgres}}
     driver-class-name: org.postgresql.Driver

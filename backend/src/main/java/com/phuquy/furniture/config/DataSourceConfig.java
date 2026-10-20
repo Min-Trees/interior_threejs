@@ -15,9 +15,12 @@ import java.net.URI;
 @Configuration
 public class DataSourceConfig {
 
-    // 1. URL formats (Railway DATABASE_URL / DATABASE_PRIVATE_URL)
+    // 1. URL formats (Railway DATABASE_URL / DATABASE_PUBLIC_URL / DATABASE_PRIVATE_URL)
     @Value("${DATABASE_URL:#{null}}")
     private String databaseUrl;
+
+    @Value("${DATABASE_PUBLIC_URL:#{null}}")
+    private String databasePublicUrl;
 
     @Value("${DATABASE_PRIVATE_URL:#{null}}")
     private String databasePrivateUrl;
@@ -38,6 +41,13 @@ public class DataSourceConfig {
     @Value("${PGPASSWORD:#{null}}")
     private String pgPassword;
 
+    // TCP Proxy variables (when connecting from outside Railway network)
+    @Value("${RAILWAY_TCP_PROXY_DOMAIN:#{null}}")
+    private String railwayTcpProxyDomain;
+
+    @Value("${RAILWAY_TCP_PROXY_PORT:#{null}}")
+    private String railwayTcpProxyPort;
+
     // 3. Fallback standard spring.datasource properties
     @Value("${spring.datasource.url:#{null}}")
     private String defaultJdbcUrl;
@@ -53,14 +63,21 @@ public class DataSourceConfig {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.postgresql.Driver");
+        config.addDataSourceProperty("options", "-c timezone=Asia/Ho_Chi_Minh");
 
-        // Priority 1: Check DATABASE_URL or DATABASE_PRIVATE_URL (Railway URL format)
+        // Priority 1: Check DATABASE_PUBLIC_URL, DATABASE_URL, DATABASE_PRIVATE_URL
         String rawUrl = getFirstNonBlank(
+                databasePublicUrl,
+                System.getenv("DATABASE_PUBLIC_URL"),
                 databaseUrl,
-                databasePrivateUrl,
                 System.getenv("DATABASE_URL"),
+                databasePrivateUrl,
                 System.getenv("DATABASE_PRIVATE_URL")
         );
+
+        // If rawUrl contains internal railway host but we have a TCP proxy domain, rewrite host & port
+        String proxyDomain = getFirstNonBlank(railwayTcpProxyDomain, System.getenv("RAILWAY_TCP_PROXY_DOMAIN"));
+        String proxyPort = getFirstNonBlank(railwayTcpProxyPort, System.getenv("RAILWAY_TCP_PROXY_PORT"));
 
         if (rawUrl != null && !rawUrl.isBlank()) {
             try {
@@ -70,6 +87,14 @@ public class DataSourceConfig {
 
                 String host = uri.getHost();
                 int port = uri.getPort() == -1 ? 5432 : uri.getPort();
+
+                // If host is .railway.internal (not resolvable outside) and we have proxy info, use proxy!
+                if (host != null && host.endsWith(".railway.internal") && proxyDomain != null && !proxyDomain.isBlank()) {
+                    log.info("Chuyển hướng từ internal host {} sang Railway TCP Proxy {}:{}", host, proxyDomain, proxyPort);
+                    host = proxyDomain;
+                    port = proxyPort != null ? Integer.parseInt(proxyPort) : port;
+                }
+
                 String path = uri.getPath();
                 String database = (path != null && path.length() > 1) ? path.substring(1) : "railway";
 
@@ -96,15 +121,16 @@ public class DataSourceConfig {
         }
 
         // Priority 2: Check Railway individual variables (PGHOST, PGDATABASE, PGUSER, PGPASSWORD, PGPORT)
-        String host = getFirstNonBlank(pgHost, System.getenv("PGHOST"));
-        String port = getFirstNonBlank(pgPort, System.getenv("PGPORT"), "5432");
+        // If proxyDomain is present, prefer it for external connections
+        String host = proxyDomain != null ? proxyDomain : getFirstNonBlank(pgHost, System.getenv("PGHOST"));
+        String port = (proxyDomain != null && proxyPort != null) ? proxyPort : getFirstNonBlank(pgPort, System.getenv("PGPORT"), "5432");
         String database = getFirstNonBlank(pgDatabase, System.getenv("PGDATABASE"), "railway");
         String username = getFirstNonBlank(pgUser, System.getenv("PGUSER"));
         String password = getFirstNonBlank(pgPassword, System.getenv("PGPASSWORD"));
 
         if (host != null && !host.isBlank() && username != null && !username.isBlank()) {
             String jdbcUrl = "jdbc:postgresql://" + host + ":" + port + "/" + database;
-            log.info("Phát hiện biến môi trường Railway (PGHOST={}): Đang kết nối {} với user: {}", host, jdbcUrl, username);
+            log.info("Phát hiện biến môi trường Railway: Đang kết nối {} với user: {}", jdbcUrl, username);
             config.setJdbcUrl(jdbcUrl);
             config.setUsername(username);
             config.setPassword(password != null ? password : "");
