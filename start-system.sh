@@ -15,16 +15,19 @@ echo "========================================================"
 
 # 1. Kiểm tra file .env
 if [ ! -f "$ROOT_DIR/.env" ]; then
-    echo "⚠️ File .env chưa tồn tại. Đang copy từ .env.example..."
-    cp "$ROOT_DIR/.env.example" "$ROOT_DIR/.env"
+    echo "⚠️ File .env chưa tồn tại. Đang tự động cấu hình qua setup-env.sh..."
+    chmod +x "$ROOT_DIR/setup-env.sh" 2>/dev/null || true
+    "$ROOT_DIR/setup-env.sh"
 fi
 
-# 2. Kiểm tra PostgreSQL
-echo "[1/4] Kiểm tra PostgreSQL Database..."
-if command -v pg_isready &> /dev/null; then
-    pg_isready -h localhost -p 5432 || echo "⚠️ Cảnh báo: PostgreSQL chưa phản hồi trên port 5432."
+# 2. Kiểm tra Database
+echo "[1/4] Kiểm tra kết nối Database..."
+if grep -q "iriguchi.proxy.rlwy.net" "$ROOT_DIR/.env" 2>/dev/null; then
+    echo "  ✅ Sử dụng PostgreSQL Railway Cloud (iriguchi.proxy.rlwy.net:50783)."
 else
-    echo "ℹ️ Bỏ qua kiểm tra pg_isready (không tìm thấy lệnh)."
+    if command -v pg_isready &> /dev/null; then
+        pg_isready -h localhost -p 5432 || echo "⚠️ Cảnh báo: PostgreSQL cục bộ chưa phản hồi."
+    fi
 fi
 
 # 3. Khởi động Backend
@@ -32,7 +35,12 @@ echo "[2/4] Kiểm tra & Khởi động Backend (Spring Boot 8080)..."
 if ! nc -z localhost 8080 2>/dev/null; then
     echo "  ⏳ Đang khởi động Backend dưới nền..."
     cd "$BACKEND_DIR"
-    nohup mvn spring-boot:run > "$ROOT_DIR/backend.log" 2>&1 &
+    if [ -f "./mvnw" ]; then
+        chmod +x ./mvnw 2>/dev/null || true
+        nohup ./mvnw spring-boot:run > "$ROOT_DIR/backend.log" 2>&1 &
+    else
+        nohup mvn spring-boot:run > "$ROOT_DIR/backend.log" 2>&1 &
+    fi
 else
     echo "  ✅ Backend đã chạy sẵn trên cổng 8080."
 fi

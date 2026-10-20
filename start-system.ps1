@@ -7,23 +7,29 @@ Write-Host "🚀 Khởi động Hệ Thống Phú Quý Furniture E-Commerce & 3D
 Write-Host "========================================================" -ForegroundColor Cyan
 
 $ROOT_DIR = $PSScriptRoot
+if (-not $ROOT_DIR) { $ROOT_DIR = (Get-Location).Path }
 $BACKEND_DIR = Join-Path $ROOT_DIR "backend"
 $FRONTEND_DIR = Join-Path $ROOT_DIR "frontend"
 
 # 1. Kiểm tra cấu hình .env
 if (-not (Test-Path (Join-Path $ROOT_DIR ".env"))) {
-    Write-Host "⚠️ File .env chưa tồn tại. Đang tạo từ .env.example..." -ForegroundColor Yellow
-    Copy-Item (Join-Path $ROOT_DIR ".env.example") (Join-Path $ROOT_DIR ".env")
+    Write-Host "⚠️ File .env chưa tồn tại. Đang tự động cấu hình qua setup-env.ps1..." -ForegroundColor Yellow
+    & (Join-Path $ROOT_DIR "setup-env.ps1")
 }
 
-# 2. Kiểm tra dịch vụ PostgreSQL
-Write-Host "[1/4] Kiểm tra PostgreSQL Database..." -ForegroundColor Magenta
-$pgProcesses = Get-Process -Name postgres* -ErrorAction SilentlyContinue
-if (-not $pgProcesses) {
-    Write-Host "⚠️ Cảnh báo: Không phát hiện tiến trình postgres. Đang thử khởi động dịch vụ..." -ForegroundColor Yellow
-    Get-Service -Name postgres* -ErrorAction SilentlyContinue | Start-Service -ErrorAction SilentlyContinue
+# 2. Kiểm tra dịch vụ Database
+Write-Host "[1/4] Kiểm tra kết nối Database..." -ForegroundColor Magenta
+$envContent = Get-Content (Join-Path $ROOT_DIR ".env") -Raw -ErrorAction SilentlyContinue
+if ($envContent -match "iriguchi\.proxy\.rlwy\.net" -or $envContent -match "railway") {
+    Write-Host "  ✅ Sử dụng PostgreSQL Railway Cloud (iriguchi.proxy.rlwy.net:50783)." -ForegroundColor Green
 } else {
-    Write-Host "  ✅ PostgreSQL đang chạy (PIDs: $($pgProcesses.Count) processes)." -ForegroundColor Green
+    $pgProcesses = Get-Process -Name postgres* -ErrorAction SilentlyContinue
+    if (-not $pgProcesses) {
+        Write-Host "⚠️ Không phát hiện tiến trình postgres cục bộ. Thử khởi động..." -ForegroundColor Yellow
+        Get-Service -Name postgres* -ErrorAction SilentlyContinue | Start-Service -ErrorAction SilentlyContinue
+    } else {
+        Write-Host "  ✅ PostgreSQL cục bộ đang chạy." -ForegroundColor Green
+    }
 }
 
 # 3. Khởi động Backend Spring Boot
@@ -31,7 +37,7 @@ Write-Host "[2/4] Kiểm tra Backend (Spring Boot)..." -ForegroundColor Magenta
 $backendListening = netstat -ano | findstr ":8080" | findstr "LISTENING"
 if (-not $backendListening) {
     Write-Host "  ⏳ Đang khởi động Backend trên cổng 8080..." -ForegroundColor Yellow
-    Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$BACKEND_DIR'; Write-Host '--- PHU QUY BACKEND (8080) ---' -ForegroundColor Cyan; mvn spring-boot:run" -WindowStyle Minimized
+    Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$BACKEND_DIR'; Write-Host '--- PHU QUY BACKEND (8080) ---' -ForegroundColor Cyan; .\mvnw.cmd spring-boot:run" -WindowStyle Minimized
 } else {
     Write-Host "  ✅ Backend đã sẵn sàng và đang lắng nghe trên cổng 8080." -ForegroundColor Green
 }

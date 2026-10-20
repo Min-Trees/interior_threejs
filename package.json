@@ -1,0 +1,22 @@
+{
+  "name": "phuquy-luxury-furniture",
+  "version": "1.0.0",
+  "description": "Website TMĐT Nội Thất Sang Trọng Phú Quý tích hợp Three.js 3D, Tư vấn AI & VNPay Gateway",
+  "scripts": {
+    "setup:env": "node setup-env.js",
+    "install:all": "node setup-env.js && cd frontend && npm install",
+    "start:backend": "cd backend && ./mvnw spring-boot:run",
+    "start:backend:win": "cd backend && .\\mvnw.cmd spring-boot:run",
+    "start:frontend": "cd frontend && npm run dev"
+  },
+  "keywords": [
+    "ecommerce",
+    "threejs",
+    "furniture",
+    "ai",
+    "spring-boot",
+    "railway"
+  ],
+  "author": "Phu Quy Team",
+  "license": "MIT"
+}

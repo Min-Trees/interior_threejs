@@ -142,18 +142,37 @@ docker run -d \
 
 ---
 
-### 3.4. Cấu hình biến môi trường (.env)
+### 3.4. Cấu hình biến môi trường (.env) - Tự Động Hoá 100%
 
-Tại thư mục gốc của dự án (`d:/Job/PhuQuy`):
+Dự án hỗ trợ script tự động cấu hình `.env` cho Agent hoặc lập trình viên khi clone sang máy mới, kết nối trực tiếp vào **Database Railway Cloud** (đã có sẵn 16 bảng & 14 sản phẩm 3D, không cần tốn công cài đặt PostgreSQL cục bộ):
 
-1. Sao chép file mẫu:
-   ```bash
-   # Windows PowerShell
-   Copy-Item .env.example .env -Force
-   
-   # Linux / macOS
-   cp .env.example .env
-   ```
+#### 🚀 Cách 1: Chạy script tự động (Khuyên dùng cho Agent)
+Agent chỉ cần chạy 1 câu lệnh duy nhất tùy theo môi trường:
+```bash
+# Đa nền tảng (Bất kỳ OS nào có Node.js):
+node setup-env.js
+
+# Hoặc trên Windows PowerShell:
+.\setup-env.ps1
+
+# Hoặc trên Linux / macOS / WSL:
+chmod +x setup-env.sh && ./setup-env.sh
+```
+
+**Script trên tự động thực hiện:**
+1. Kiểm tra Railway CLI (nếu có đăng nhập thì tự động kéo URL mới nhất từ cloud).
+2. Tự động sinh tệp `.env` tại thư mục gốc và sao chép vào `backend/.env`.
+3. Kiểm tra socket TCP kết nối tới Database Railway Cloud (`iriguchi.proxy.rlwy.net:50783`).
+4. Báo cáo trạng thái sẵn sàng để khởi động Backend & Frontend.
+
+#### 🛠️ Cách 2: Sao chép thủ công từ tệp mẫu
+```bash
+# Windows PowerShell
+Copy-Item .env.example .env -Force
+
+# Linux / macOS
+cp .env.example .env
+```
 
 2. Nội dung file `.env` chuẩn:
    ```properties
