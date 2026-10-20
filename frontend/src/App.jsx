@@ -23,6 +23,7 @@ import Register from './pages/Register';
 import WishlistPage from './pages/WishlistPage';
 import ComparePage from './pages/ComparePage';
 import RoomConceptPage from './pages/RoomConceptPage';
+import VNPayCallback from './pages/VNPayCallback';
 
 // Admin Pages
 import Dashboard from './pages/admin/Dashboard';
@@ -59,6 +60,7 @@ function App() {
                   <Route path="/products/:slug" element={<ProductDetail />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/payment/vnpay/callback" element={<VNPayCallback />} />
                   <Route path="/orders" element={<OrderHistory />} />
                   <Route path="/yeu-thich" element={<WishlistPage />} />
                   <Route path="/so-sanh" element={<ComparePage />} />

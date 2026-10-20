@@ -32,6 +32,7 @@ public class OrderDTO {
     private String recipientPhone;
     private String shippingAddress;
     private String note;
+    private String paymentUrl;
     private List<OrderItemDTO> items;
     private LocalDateTime createdAt;
 

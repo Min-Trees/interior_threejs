@@ -38,6 +38,7 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
     private final VoucherService voucherService;
+    private final VnpayService vnpayService;
 
     @Transactional
     public OrderDTO createOrder(String email, CreateOrderRequest request) {
@@ -124,7 +125,18 @@ public class OrderService {
         cartItemRepository.deleteByCartId(cart.getId());
 
         log.info("Order created successfully: {} by {}", savedOrder.getOrderCode(), user.getEmail());
-        return OrderDTO.fromEntity(savedOrder);
+        OrderDTO orderDTO = OrderDTO.fromEntity(savedOrder);
+
+        if (savedOrder.getPaymentMethod() == Order.PaymentMethod.VNPAY) {
+            try {
+                String paymentUrl = vnpayService.createPaymentUrl(savedOrder, "127.0.0.1");
+                orderDTO.setPaymentUrl(paymentUrl);
+            } catch (Exception e) {
+                log.error("Không thể tạo liên kết thanh toán VNPAY cho đơn {}: {}", savedOrder.getOrderCode(), e.getMessage());
+            }
+        }
+
+        return orderDTO;
     }
 
     @Transactional(readOnly = true)

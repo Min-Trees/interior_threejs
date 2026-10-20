@@ -126,9 +126,26 @@ CREATE TABLE IF NOT EXISTS showroom_appointments (
     updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS payment_transactions (
+    id BIGSERIAL PRIMARY KEY,
+    order_id BIGINT REFERENCES orders(id) ON DELETE SET NULL,
+    order_code VARCHAR(64) NOT NULL,
+    transaction_no VARCHAR(64),
+    bank_code VARCHAR(30),
+    amount NUMERIC(12, 2) NOT NULL,
+    card_type VARCHAR(30),
+    payment_method VARCHAR(30) DEFAULT 'VNPAY',
+    status VARCHAR(30) NOT NULL,
+    response_code VARCHAR(20),
+    order_info TEXT,
+    pay_date VARCHAR(30),
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Tạo Index tăng tốc truy vấn tìm kiếm
 CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
 CREATE INDEX IF NOT EXISTS idx_products_slug ON products(slug);
 CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
+CREATE INDEX IF NOT EXISTS idx_payment_order_code ON payment_transactions(order_code);
 CREATE INDEX IF NOT EXISTS idx_chat_messages_session ON chat_messages(session_id);
 CREATE INDEX IF NOT EXISTS idx_appointments_phone ON showroom_appointments(phone);

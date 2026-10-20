@@ -23,6 +23,11 @@
       <stop offset="100%" stop-color="#8b5cf6"/>
     </linearGradient>
 
+    <linearGradient id="payGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+
     <linearGradient id="cartGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#0369a1"/>
       <stop offset="100%" stop-color="#0ea5e9"/>
@@ -50,9 +55,6 @@
     </filter>
 
     <!-- Markers -->
-    <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6">
-      <circle cx="5" cy="5" r="3" fill="#64748b"/>
-    </marker>
     <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 9 5 L 0 9 z" fill="#38bdf8"/>
     </marker>
@@ -64,6 +66,9 @@
     </marker>
     <marker id="arrowPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 9 5 L 0 9 z" fill="#a855f7"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#3b82f6"/>
     </marker>
   </defs>
 
@@ -93,87 +98,93 @@
   </g>
 
   <!-- ==================== HEADER BANNER ==================== -->
-  <g transform="translate(40, 30)">
-    <rect x="0" y="0" width="1840" height="60" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
+  <g transform="translate(40, 25)">
+    <rect x="0" y="0" width="1840" height="65" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
     
     <!-- Logo Icon -->
-    <rect x="18" y="14" width="32" height="32" rx="8" fill="url(#productGrad)"/>
-    <text x="26" y="36" font-family="'Segoe UI', sans-serif" font-size="18" font-weight="900" fill="#ffffff">PQ</text>
+    <rect x="18" y="14" width="36" height="36" rx="8" fill="url(#productGrad)"/>
+    <text x="24" y="38" font-family="'Segoe UI', sans-serif" font-size="20" font-weight="900" fill="#ffffff">PQ</text>
 
     <!-- Title & Subtitle -->
-    <text x="64" y="32" class="title">SƠ ĐỒ CƠ SỞ DỮ LIỆU — PHÚ QUÝ FURNITURE (PostgreSQL 17)</text>
-    <text x="64" y="49" class="subtitle">15 Quan Hệ Thực Thể (ERD) • Spring Boot 3.3.4 JPA • AI Chatbot RAG • 3D Interactive Showroom</text>
+    <text x="68" y="34" class="title">SƠ ĐỒ CƠ SỞ DỮ LIỆU — PHÚ QUÝ FURNITURE (PostgreSQL 17 / Railway Cloud)</text>
+    <text x="68" y="53" class="subtitle">16 Quan Hệ Thực Thể • Spring Boot 3.3.4 JPA • Cổng Thanh Toán VNPay Sandbox • AI Chatbot RAG • 3D Showroom</text>
 
     <!-- Legend -->
-    <g transform="translate(1220, 16)">
+    <g transform="translate(1160, 18)">
       <!-- PK Badge -->
       <rect x="0" y="6" width="30" height="16" rx="4" fill="#854d0e" opacity="0.8"/>
       <text x="5" y="18" class="badge-pk">[PK]</text>
       <text x="35" y="19" class="legend-text">Khóa chính</text>
 
       <!-- FK Badge -->
-      <rect x="120" y="6" width="30" height="16" rx="4" fill="#0369a1" opacity="0.8"/>
-      <text x="125" y="18" class="badge-fk">[FK]</text>
-      <text x="155" y="19" class="legend-text">Khóa ngoại</text>
+      <rect x="110" y="6" width="30" height="16" rx="4" fill="#0369a1" opacity="0.8"/>
+      <text x="115" y="18" class="badge-fk">[FK]</text>
+      <text x="145" y="19" class="legend-text">Khóa ngoại</text>
 
       <!-- Domains -->
-      <circle cx="250" cy="14" r="5" fill="#10b981"/>
-      <text x="260" y="18" class="legend-text">Tài khoản</text>
+      <circle cx="235" cy="14" r="5" fill="#10b981"/>
+      <text x="245" y="18" class="legend-text">Tài khoản</text>
 
-      <circle cx="340" cy="14" r="5" fill="#f59e0b"/>
-      <text x="350" y="18" class="legend-text">Sản phẩm 3D</text>
+      <circle cx="325" cy="14" r="5" fill="#f59e0b"/>
+      <text x="335" y="18" class="legend-text">Sản phẩm 3D</text>
 
-      <circle cx="455" cy="14" r="5" fill="#8b5cf6"/>
-      <text x="465" y="18" class="legend-text">Đơn hàng</text>
+      <circle cx="435" cy="14" r="5" fill="#8b5cf6"/>
+      <text x="445" y="18" class="legend-text">Đơn hàng</text>
 
-      <circle cx="545" cy="14" r="5" fill="#6366f1"/>
-      <text x="555" y="18" class="legend-text">AI RAG</text>
+      <circle cx="525" cy="14" r="5" fill="#3b82f6"/>
+      <text x="535" y="18" class="legend-text">VNPay</text>
+
+      <circle cx="600" cy="14" r="5" fill="#6366f1"/>
+      <text x="610" y="18" class="legend-text">AI RAG</text>
     </g>
   </g>
 
   <!-- ==================== RELATIONSHIP CONNECTIONS (CUBIC BEZIERS) ==================== -->
   <g>
-    <!-- roles (x=160, y=225) -> users (x=160, y=250) -->
-    <path d="M 160 225 L 160 250" class="rel-line" stroke="#10b981" marker-end="url(#arrowEmerald)"/>
+    <!-- roles -> users -->
+    <path d="M 175 225 L 175 250" class="rel-line" stroke="#10b981" marker-end="url(#arrowEmerald)"/>
 
-    <!-- users (x=320, y=380) -> carts (x=730, y=170) -->
+    <!-- users -> carts -->
     <path d="M 320 380 C 450 380, 580 170, 730 170" class="rel-line" stroke="#0ea5e9" marker-end="url(#arrowCyan)"/>
 
-    <!-- carts (x=860, y=255) -> cart_items (x=860, y=285) -->
-    <path d="M 860 255 L 860 285" class="rel-line" stroke="#0ea5e9" marker-end="url(#arrowCyan)"/>
+    <!-- carts -> cart_items -->
+    <path d="M 890 255 L 890 285" class="rel-line" stroke="#0ea5e9" marker-end="url(#arrowCyan)"/>
 
-    <!-- products (x=680, y=420) -> cart_items (x=730, y=360) -->
+    <!-- products -> cart_items -->
     <path d="M 680 420 C 700 420, 705 360, 730 360" class="rel-line" stroke="#f59e0b" marker-end="url(#arrowAmber)"/>
 
-    <!-- categories (x=505, y=310) -> products (x=505, y=345) -->
-    <path d="M 505 310 L 505 345" class="rel-line" stroke="#f59e0b" marker-end="url(#arrowAmber)"/>
+    <!-- categories -> products -->
+    <path d="M 520 310 L 520 345" class="rel-line" stroke="#f59e0b" marker-end="url(#arrowAmber)"/>
 
-    <!-- users (x=320, y=450) -> orders (x=730, y=550) -->
+    <!-- users -> orders -->
     <path d="M 320 450 C 450 450, 580 550, 730 550" class="rel-line" stroke="#a855f7" marker-end="url(#arrowPurple)"/>
 
-    <!-- orders (x=880, y=860) -> order_items (x=880, y=890) -->
-    <path d="M 880 860 L 880 890" class="rel-line" stroke="#a855f7" marker-end="url(#arrowPurple)"/>
+    <!-- orders -> order_items -->
+    <path d="M 890 860 L 890 890" class="rel-line" stroke="#a855f7" marker-end="url(#arrowPurple)"/>
 
-    <!-- products (x=680, y=620) -> order_items (x=730, y=940) -->
+    <!-- products -> order_items -->
     <path d="M 680 620 C 700 620, 700 940, 730 940" class="rel-line" stroke="#f59e0b" marker-end="url(#arrowAmber)"/>
 
-    <!-- users (x=175, y=580) -> user_preferences (x=175, y=615) -->
+    <!-- orders -> payment_transactions -->
+    <path d="M 1050 640 L 1100 550" class="rel-line" stroke="#3b82f6" marker-end="url(#arrowBlue)"/>
+
+    <!-- users -> user_preferences -->
     <path d="M 175 580 L 175 615" class="rel-line" stroke="#10b981" marker-end="url(#arrowEmerald)"/>
 
-    <!-- products (x=515, y=825) -> showroom_appointments (x=515, y=860) -->
-    <path d="M 515 825 L 515 860" class="rel-line" stroke="#f59e0b" marker-end="url(#arrowAmber)"/>
+    <!-- products -> showroom_appointments -->
+    <path d="M 520 825 L 520 860" class="rel-line" stroke="#f59e0b" marker-end="url(#arrowAmber)"/>
 
-    <!-- products (x=680, y=490) -> wishlists (x=1100, y=510) -->
-    <path d="M 680 490 C 850 490, 950 510, 1100 510" class="rel-line" stroke="#f43f5e" marker-end="url(#arrowAmber)"/>
+    <!-- products -> wishlists -->
+    <path d="M 680 500 C 850 500, 950 780, 1100 780" class="rel-line" stroke="#f43f5e" marker-end="url(#arrowAmber)"/>
 
-    <!-- products (x=680, y=540) -> product_reviews (x=1100, y=710) -->
-    <path d="M 680 540 C 850 540, 950 710, 1100 710" class="rel-line" stroke="#f43f5e" marker-end="url(#arrowAmber)"/>
+    <!-- products -> product_reviews -->
+    <path d="M 680 560 C 850 560, 950 960, 1100 960" class="rel-line" stroke="#f43f5e" marker-end="url(#arrowAmber)"/>
 
-    <!-- users (x=320, y=510) -> chat_sessions (x=1460, y=200) -->
+    <!-- users -> chat_sessions -->
     <path d="M 320 510 C 600 510, 1200 200, 1460 200" class="rel-line" stroke="#6366f1" marker-end="url(#arrowCyan)"/>
 
-    <!-- chat_sessions (x=1650, y=300) -> chat_messages (x=1650, y=330) -->
-    <path d="M 1650 300 L 1650 330" class="rel-line" stroke="#6366f1" marker-end="url(#arrowCyan)"/>
+    <!-- chat_sessions -> chat_messages -->
+    <path d="M 1660 300 L 1660 330" class="rel-line" stroke="#6366f1" marker-end="url(#arrowCyan)"/>
   </g>
 
   <!-- ==================== COLUMN 1: USERS & AUTH ==================== -->
@@ -185,7 +196,6 @@
     <rect y="26" width="270" height="8" fill="url(#userGrad)"/>
     <text x="14" y="22" class="th">roles</text>
     <text x="215" y="22" class="th-badge">Phân quyền</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -205,7 +215,6 @@
     <rect y="26" width="280" height="8" fill="url(#userGrad)"/>
     <text x="14" y="22" class="th">users</text>
     <text x="215" y="22" class="th-badge">Khách hàng</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -241,8 +250,6 @@
 
       <text x="28" y="220" class="fn">updated_at</text>
       <text x="185" y="220" class="ft">TIMESTAMP</text>
-
-      <text x="28" y="242" class="ft" fill="#10b981">● Default: ACTIVE</text>
     </g>
   </g>
 
@@ -253,7 +260,6 @@
     <rect y="26" width="280" height="8" fill="url(#userGrad)"/>
     <text x="14" y="22" class="th">user_preferences</text>
     <text x="215" y="22" class="th-badge">Sở thích</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -295,7 +301,6 @@
     <rect y="26" width="315" height="8" fill="url(#productGrad)"/>
     <text x="14" y="22" class="th">categories</text>
     <text x="235" y="22" class="th-badge">Danh mục</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -328,7 +333,6 @@
     <rect y="26" width="315" height="8" fill="url(#productGrad)"/>
     <text x="14" y="22" class="th">products</text>
     <text x="205" y="22" class="th-badge">Sản phẩm 3D</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -385,8 +389,6 @@
 
       <text x="28" y="374" class="fn">updated_at</text>
       <text x="215" y="374" class="ft">TIMESTAMP</text>
-
-      <text x="28" y="402" class="ft" fill="#f59e0b">★ Tích hợp mô hình GLTF 3D PBR</text>
     </g>
   </g>
 
@@ -397,7 +399,6 @@
     <rect y="26" width="315" height="8" fill="url(#aiGrad)"/>
     <text x="14" y="22" class="th">showroom_appointments</text>
     <text x="245" y="22" class="th-badge">Đặt lịch</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -439,7 +440,6 @@
     <rect y="26" width="320" height="8" fill="url(#cartGrad)"/>
     <text x="14" y="22" class="th">carts</text>
     <text x="250" y="22" class="th-badge">Giỏ hàng</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -464,7 +464,6 @@
     <rect y="26" width="320" height="8" fill="url(#cartGrad)"/>
     <text x="14" y="22" class="th">cart_items</text>
     <text x="240" y="22" class="th-badge">Mục giỏ hàng</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -493,7 +492,6 @@
     <rect y="26" width="320" height="8" fill="url(#orderGrad)"/>
     <text x="14" y="22" class="th">orders</text>
     <text x="250" y="22" class="th-badge">Đơn hàng</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -515,11 +513,11 @@
       <text x="28" y="110" class="fn">status</text>
       <text x="220" y="110" class="ft">VARCHAR(30)</text>
 
-      <text x="28" y="132" class="fn">payment_method</text>
-      <text x="220" y="132" class="ft">VARCHAR(30)</text>
+      <text x="28" y="132" class="fn" fill="#3b82f6">payment_method</text>
+      <text x="220" y="132" class="ft">COD|BANK|VNPAY</text>
 
       <text x="28" y="154" class="fn">payment_status</text>
-      <text x="220" y="154" class="ft">VARCHAR(30)</text>
+      <text x="220" y="154" class="ft">PAID | UNPAID</text>
 
       <text x="28" y="176" class="fn">recipient_name</text>
       <text x="220" y="176" class="ft">VARCHAR(100)</text>
@@ -530,13 +528,10 @@
       <text x="28" y="220" class="fn">shipping_address</text>
       <text x="220" y="220" class="ft">VARCHAR(255)</text>
 
-      <text x="28" y="242" class="fn">note</text>
-      <text x="220" y="242" class="ft">TEXT</text>
+      <text x="28" y="242" class="fn">created_at</text>
+      <text x="220" y="242" class="ft">TIMESTAMP</text>
 
-      <text x="28" y="264" class="fn">created_at</text>
-      <text x="220" y="264" class="ft">TIMESTAMP</text>
-
-      <text x="28" y="286" class="ft" fill="#a855f7">● COD / VietQR Banking</text>
+      <text x="28" y="270" class="ft" fill="#3b82f6">💳 Tích hợp VNPay Sandbox</text>
     </g>
   </g>
 
@@ -547,7 +542,6 @@
     <rect y="26" width="320" height="8" fill="url(#orderGrad)"/>
     <text x="14" y="22" class="th">order_items</text>
     <text x="235" y="22" class="th-badge">Chi tiết đơn</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -564,30 +558,26 @@
       <text x="28" y="66" class="fn">product_name</text>
       <text x="220" y="66" class="ft">VARCHAR(255)</text>
 
-      <text x="28" y="88" class="fn">product_thumbnail</text>
-      <text x="220" y="88" class="ft">VARCHAR(500)</text>
+      <text x="28" y="88" class="fn">quantity</text>
+      <text x="220" y="88" class="ft">INT</text>
 
-      <text x="28" y="110" class="fn">quantity</text>
-      <text x="220" y="110" class="ft">INT</text>
+      <text x="28" y="110" class="fn">unit_price</text>
+      <text x="220" y="110" class="ft">NUMERIC(12,2)</text>
 
-      <text x="28" y="132" class="fn">unit_price</text>
+      <text x="28" y="132" class="fn">total_price</text>
       <text x="220" y="132" class="ft">NUMERIC(12,2)</text>
-
-      <text x="28" y="154" class="fn">total_price</text>
-      <text x="220" y="154" class="ft">NUMERIC(12,2)</text>
     </g>
   </g>
 
-  <!-- ==================== COLUMN 4: VOUCHERS & ENGAGEMENT ==================== -->
+  <!-- ==================== COLUMN 4: VOUCHERS, PAYMENTS & ENGAGEMENT ==================== -->
 
   <!-- Table: vouchers -->
   <g transform="translate(1100, 110)">
-    <rect width="325" height="320" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
+    <rect width="325" height="310" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
     <rect width="325" height="34" rx="8" fill="url(#orderGrad)"/>
     <rect y="26" width="325" height="8" fill="url(#orderGrad)"/>
     <text x="14" y="22" class="th">vouchers</text>
     <text x="240" y="22" class="th-badge">Mã giảm giá</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -617,25 +607,60 @@
       <text x="28" y="176" class="fn">used_count</text>
       <text x="225" y="176" class="ft">INT (DEFAULT 0)</text>
 
-      <text x="28" y="198" class="fn">start_date</text>
+      <text x="28" y="198" class="fn">is_active</text>
+      <text x="225" y="198" class="ft">BOOLEAN</text>
+    </g>
+  </g>
+
+  <!-- Table: payment_transactions (NEW VNPay Table) -->
+  <g transform="translate(1100, 445)">
+    <rect width="325" height="270" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="325" height="34" rx="8" fill="url(#payGrad)"/>
+    <rect y="26" width="325" height="8" fill="url(#payGrad)"/>
+    <text x="14" y="22" class="th">payment_transactions</text>
+    <text x="250" y="22" class="th-badge">Giao dịch</text>
+    <g transform="translate(14, 52)">
+      <text x="0" y="0" class="badge-pk">[PK]</text>
+      <text x="28" y="0" class="fn">id</text>
+      <text x="225" y="0" class="ft">BIGSERIAL</text>
+
+      <text x="0" y="22" class="badge-fk">[FK]</text>
+      <text x="28" y="22" class="fn">order_id</text>
+      <text x="225" y="22" class="ft">BIGINT</text>
+
+      <text x="28" y="44" class="fn">order_code</text>
+      <text x="225" y="44" class="ft">VARCHAR(64)</text>
+
+      <text x="28" y="66" class="fn">transaction_no</text>
+      <text x="225" y="66" class="ft">VARCHAR(64)</text>
+
+      <text x="28" y="88" class="fn">bank_code</text>
+      <text x="225" y="88" class="ft">VARCHAR(30)</text>
+
+      <text x="28" y="110" class="fn">amount</text>
+      <text x="225" y="110" class="ft">NUMERIC(12,2)</text>
+
+      <text x="28" y="132" class="fn">payment_method</text>
+      <text x="225" y="132" class="ft">VNPAY</text>
+
+      <text x="28" y="154" class="fn">status</text>
+      <text x="225" y="154" class="ft">SUCCESS|FAILED</text>
+
+      <text x="28" y="176" class="fn">response_code</text>
+      <text x="225" y="176" class="ft">VARCHAR(20) [00]</text>
+
+      <text x="28" y="198" class="fn">created_at</text>
       <text x="225" y="198" class="ft">TIMESTAMP</text>
-
-      <text x="28" y="220" class="fn">end_date</text>
-      <text x="225" y="220" class="ft">TIMESTAMP</text>
-
-      <text x="28" y="242" class="fn">is_active</text>
-      <text x="225" y="242" class="ft">BOOLEAN</text>
     </g>
   </g>
 
   <!-- Table: wishlists -->
-  <g transform="translate(1100, 455)">
-    <rect width="325" height="155" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
+  <g transform="translate(1100, 735)">
+    <rect width="325" height="150" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
     <rect width="325" height="34" rx="8" fill="url(#socialGrad)"/>
     <rect y="26" width="325" height="8" fill="url(#socialGrad)"/>
     <text x="14" y="22" class="th">wishlists</text>
     <text x="245" y="22" class="th-badge">Yêu thích</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -651,19 +676,16 @@
 
       <text x="28" y="66" class="fn">created_at</text>
       <text x="225" y="66" class="ft">TIMESTAMP</text>
-
-      <text x="28" y="88" class="ft" fill="#f43f5e">UNIQUE(user_id, product_id)</text>
     </g>
   </g>
 
   <!-- Table: product_reviews -->
-  <g transform="translate(1100, 640)">
-    <rect width="325" height="235" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
+  <g transform="translate(1100, 905)">
+    <rect width="325" height="215" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
     <rect width="325" height="34" rx="8" fill="url(#socialGrad)"/>
     <rect y="26" width="325" height="8" fill="url(#socialGrad)"/>
     <text x="14" y="22" class="th">product_reviews</text>
     <text x="240" y="22" class="th-badge">Đánh giá</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -686,15 +708,12 @@
       <text x="28" y="110" class="fn">status</text>
       <text x="225" y="110" class="ft">VARCHAR(30)</text>
 
-      <text x="28" y="132" class="fn">moderation_reason</text>
-      <text x="225" y="132" class="ft">TEXT</text>
-
-      <text x="28" y="154" class="fn">created_at</text>
-      <text x="225" y="154" class="ft">TIMESTAMP</text>
+      <text x="28" y="132" class="fn">created_at</text>
+      <text x="225" y="132" class="ft">TIMESTAMP</text>
     </g>
   </g>
 
-  <!-- ==================== COLUMN 5: AI RAG & CHATBOT ==================== -->
+  <!-- ==================== COLUMN 5: AI RAG & SPECS ==================== -->
 
   <!-- Table: chat_sessions -->
   <g transform="translate(1470, 110)">
@@ -703,7 +722,6 @@
     <rect y="26" width="400" height="8" fill="url(#aiGrad)"/>
     <text x="14" y="22" class="th">chat_sessions</text>
     <text x="305" y="22" class="th-badge">Phiên Chat AI</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -721,20 +739,16 @@
 
       <text x="28" y="88" class="fn">created_at</text>
       <text x="270" y="88" class="ft">TIMESTAMP</text>
-
-      <text x="28" y="110" class="fn">updated_at</text>
-      <text x="270" y="110" class="ft">TIMESTAMP</text>
     </g>
   </g>
 
   <!-- Table: chat_messages -->
-  <g transform="translate(1470, 330)">
+  <g transform="translate(1470, 325)">
     <rect width="400" height="210" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2" filter="url(#shadow)"/>
     <rect width="400" height="34" rx="8" fill="url(#aiGrad)"/>
     <rect y="26" width="400" height="8" fill="url(#aiGrad)"/>
     <text x="14" y="22" class="th">chat_messages</text>
     <text x="305" y="22" class="th-badge">Tin nhắn RAG</text>
-    <!-- Fields -->
     <g transform="translate(14, 52)">
       <text x="0" y="0" class="badge-pk">[PK]</text>
       <text x="28" y="0" class="fn">id</text>
@@ -755,26 +769,24 @@
 
       <text x="28" y="110" class="fn">created_at</text>
       <text x="270" y="110" class="ft">TIMESTAMP</text>
-
-      <text x="28" y="132" class="ft" fill="#6366f1">🤖 Groq LLM (Llama 3.3 70B)</text>
     </g>
   </g>
 
   <!-- Technical Specs & Metadata Info Box -->
-  <g transform="translate(1470, 565)">
-    <rect width="400" height="340" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 2" filter="url(#shadow)"/>
+  <g transform="translate(1470, 560)">
+    <rect width="400" height="360" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 2" filter="url(#shadow)"/>
     <rect width="400" height="38" rx="12" fill="#1e3a8a" opacity="0.6"/>
-    <text x="16" y="25" class="th" fill="#60a5fa">⚙️ THÔNG SỐ CƠ SỞ DỮ LIỆU</text>
+    <text x="16" y="25" class="th" fill="#60a5fa">⚙️ THÔNG SỐ CƠ SỞ DỮ LIỆU &amp; CLOUD</text>
     
     <g transform="translate(18, 60)" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">
-      <text x="0" y="0"><tspan font-weight="700" fill="#93c5fd">Hệ quản trị:</tspan> PostgreSQL 17 / pgvector</text>
-      <text x="0" y="24"><tspan font-weight="700" fill="#93c5fd">Tên Database:</tspan> phuquy_db</text>
+      <text x="0" y="0"><tspan font-weight="700" fill="#93c5fd">Hệ quản trị:</tspan> PostgreSQL 17 / Railway Cloud</text>
+      <text x="0" y="24"><tspan font-weight="700" fill="#93c5fd">Tên Database:</tspan> phuquy_db / railway</text>
       <text x="0" y="48"><tspan font-weight="700" fill="#93c5fd">Cổng mặc định:</tspan> 5432</text>
-      <text x="0" y="72"><tspan font-weight="700" fill="#93c5fd">Tài khoản mặc định:</tspan> postgres / postgres</text>
-      <text x="0" y="96"><tspan font-weight="700" fill="#93c5fd">Tổng số bảng:</tspan> 15 Tables quan hệ hoàn chỉnh</text>
-      <text x="0" y="120"><tspan font-weight="700" fill="#93c5fd">ORM Framework:</tspan> Spring Data JPA (Hibernate 6)</text>
-      <text x="0" y="144"><tspan font-weight="700" fill="#93c5fd">Cơ chế đồng bộ:</tspan> hibernate.ddl-auto: update</text>
-      <text x="0" y="168"><tspan font-weight="700" fill="#93c5fd">Dữ liệu mẫu:</tspan> DataSeeder nạp 11 sản phẩm 3D</text>
+      <text x="0" y="72"><tspan font-weight="700" fill="#93c5fd">Tổng số bảng:</tspan> 16 Tables quan hệ hoàn chỉnh</text>
+      <text x="0" y="96"><tspan font-weight="700" fill="#93c5fd">ORM Framework:</tspan> Spring Data JPA (Hibernate 6)</text>
+      <text x="0" y="120"><tspan font-weight="700" fill="#93c5fd">Cổng thanh toán:</tspan> VNPAY Sandbox (HMAC-SHA512)</text>
+      <text x="0" y="144"><tspan font-weight="700" fill="#93c5fd">Bảng thanh toán:</tspan> payment_transactions (Lưu vết)</text>
+      <text x="0" y="168"><tspan font-weight="700" fill="#93c5fd">Cơ chế đồng bộ:</tspan> hibernate.ddl-auto: update</text>
 
       <line x1="0" y1="190" x2="360" y2="190" stroke="#334155" stroke-width="1"/>
 
@@ -787,7 +799,7 @@
   <!-- Footer Note -->
   <g transform="translate(40, 1150)">
     <text x="0" y="0" font-family="'Segoe UI', sans-serif" font-size="12" fill="#64748b">
-      Phú Quý Furniture Database Schema • Rendered with SVG Vector Graphics • Tương thích mọi độ phân giải 4K / Mobile / Desktop
+      Phú Quý Furniture Database Schema • Rendered with SVG Vector Graphics • 16 Tables • Tương thích mọi độ phân giải 4K / Mobile / Desktop
     </text>
   </g>
 </svg>

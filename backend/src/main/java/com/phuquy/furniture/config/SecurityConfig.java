@@ -58,6 +58,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/ai/**").permitAll()
                 .requestMatchers("/api/v1/chat/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/appointments").permitAll()
+                .requestMatchers("/api/v1/payments/**").permitAll()
                 .requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 
                 // Admin endpoints

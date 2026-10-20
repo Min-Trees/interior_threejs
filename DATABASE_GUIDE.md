@@ -7,6 +7,7 @@ Tài liệu này hướng dẫn chi tiết các phương pháp kết nối, truy
 
 ## 📌 1. THÔNG SỐ KẾT NỐI (CONNECTION PARAMETERS)
 
+### 1.1. Cấu hình Cục Bộ (Local PostgreSQL)
 | Thông số | Giá trị mặc định | Chú thích |
 |---|---|---|
 | **Host** | `localhost` (hoặc `127.0.0.1`) | Máy chủ cơ sở dữ liệu |
@@ -16,11 +17,22 @@ Tài liệu này hướng dẫn chi tiết các phương pháp kết nối, truy
 | **Password** | `postgres` (hoặc giá trị trong `.env`) | Mật khẩu kết nối |
 | **Connection URI** | `postgresql://postgres:postgres@localhost:5432/phuquy_db` | Dùng cho VS Code / Prisma / DBeaver |
 
+### 1.2. Cấu hình Điện Toán Đám Mây (Railway Cloud PostgreSQL)
+Hệ thống Backend Spring Boot đã được tích hợp bộ phân giải thông minh `DataSourceConfig.java`, tự động nhận dạng chuỗi kết nối Railway:
+- **Chuỗi kết nối Railway**:
+  ```text
+  postgresql://postgres:WvuYhBooPMynozmoAWoGisDxVOviVUgs@postgres.railway.internal:5432/railway
+  ```
+- **Lưu ý quan trọng về Railway**:
+  + `postgres.railway.internal`: Là tên miền nội bộ (Internal Private Domain) chỉ phân giải được khi Backend chạy trực tiếp trong cùng dự án trên Railway Cloud.
+  + Nếu kết nối từ máy tính bên ngoài (Local / DBeaver), hãy dùng **Public TCP Proxy Domain** do Railway cấp trong tab **Variables / Connect** (Ví dụ dạng: `junction.proxy.rlwy.net:PORT`).
+  + Để kích hoạt trên máy hoặc container, chỉ cần đặt biến môi trường `DATABASE_URL` trong file `.env`.
+
 ---
 
-## 🖼️ 2. SƠ ĐỒ THỰC THỂ QUAN HỆ (ERD SVG)
+## 🖼️ 2. SƠ ĐỒ THỰC THỂ QUAN HỆ (ERD SVG - 16 BẢNG)
 
-Toàn bộ 15 bảng cơ sở dữ liệu đã được trực quan hóa dưới dạng ảnh vector SVG chất lượng cao:
+Toàn bộ 16 bảng cơ sở dữ liệu (bao gồm phân hệ `payment_transactions` cho VNPay Sandbox) đã được trực quan hóa dưới dạng ảnh vector SVG chất lượng cao:
 - **Tệp gốc**: [database_erd.svg](file:///d:/Job/PhuQuy/database_erd.svg)
 - **Xem trực tiếp trên trình duyệt khi Frontend đang chạy**: [http://localhost:5173/database_erd.svg](http://localhost:5173/database_erd.svg)
 

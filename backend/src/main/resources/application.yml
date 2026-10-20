@@ -33,3 +33,8 @@ app:
     model: ${GROQ_MODEL:llama-3.3-70b-versatile}
   cors:
     allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173}
+  vnpay:
+    tmn-code: ${VNP_TMN_CODE:2QXUI4J4}
+    hash-secret: ${VNP_HASH_SECRET:RAOCTPBM2IHMD3ENFRAPGCSYHH3SBNUE}
+    pay-url: ${VNP_PAY_URL:https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+    return-url: ${VNP_RETURN_URL:http://localhost:5173/payment/vnpay/callback}

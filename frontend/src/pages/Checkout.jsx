@@ -93,8 +93,14 @@ const Checkout = () => {
     try {
       const res = await api.post('/orders', formData);
       if (res.success && res.data) {
-        setSuccessOrder(res.data);
+        const orderData = res.data;
+        setSuccessOrder(orderData);
         await fetchCart();
+
+        if (formData.paymentMethod === 'VNPAY' && orderData.paymentUrl) {
+          window.location.href = orderData.paymentUrl;
+          return;
+        }
 
         if (formData.paymentMethod === 'BANKING') {
           setShowVietQrModal(true);
@@ -297,6 +303,30 @@ const Checkout = () => {
                     <span className="bg-amber-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">Nhanh nhất</span>
                   </div>
                   <div className="text-[11px] text-stone-500">Tự động tạo mã QR Napas247 điền sẵn số tiền và mã đơn hàng.</div>
+                </div>
+              </label>
+
+              {/* VNPAY Sandbox */}
+              <label className={`flex items-center gap-3 p-4 rounded-2xl border cursor-pointer transition ${
+                formData.paymentMethod === 'VNPAY' ? 'border-blue-600 bg-blue-50/50' : 'border-stone-200 hover:bg-stone-50'
+              }`}>
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="VNPAY"
+                  checked={formData.paymentMethod === 'VNPAY'}
+                  onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                  className="w-4 h-4 text-blue-600"
+                />
+                <div className="w-5 h-5 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-[9px] shadow-sm">
+                  VN
+                </div>
+                <div className="flex-1">
+                  <div className="text-xs font-bold text-stone-900 flex items-center gap-2">
+                    <span>Cổng Thanh Toán VNPAY Sandbox (ATM / QR / Visa)</span>
+                    <span className="bg-blue-600 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">Thử nghiệm</span>
+                  </div>
+                  <div className="text-[11px] text-stone-500">Chuyển hướng an toàn sang cổng VNPAY. Hỗ trợ quét mã VNPAY-QR hoặc nhập thẻ test.</div>
                 </div>
               </label>
 
